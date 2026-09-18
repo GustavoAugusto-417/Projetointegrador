@@ -1,0 +1,345 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f2f4f7;
+    color: #222;
+}
+
+
+/* =========================
+   TOPO
+========================= */
+
+.topo {
+    background: #17243a;
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+.topo h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.topo p {
+    opacity: 0.8;
+}
+
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container {
+    width: 95%;
+    max-width: 1400px;
+    margin: 25px auto;
+}
+
+
+/* =========================
+   MENU
+========================= */
+
+.menu {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.menu button {
+    border: none;
+    background: #17243a;
+    color: white;
+    padding: 13px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.menu button:hover {
+    background: #263b5c;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+}
+
+.card h2 {
+    margin-bottom: 20px;
+    color: #17243a;
+}
+
+
+/* =========================
+   FORMULÁRIOS
+========================= */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.formulario-funcionario {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #2878d4;
+}
+
+
+/* =========================
+   BOTÕES
+========================= */
+
+.btn-principal {
+    background: #2878d4;
+    color: white;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.btn-principal:hover {
+    background: #1d5fae;
+}
+
+.btn-principal:disabled {
+    background: #999;
+    cursor: not-allowed;
+}
+
+.btn-grande {
+    margin-top: 15px;
+    padding: 16px;
+    font-size: 17px;
+}
+
+
+/* =========================
+   TABELAS
+========================= */
+
+.tabela-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+th {
+    background: #17243a;
+    color: white;
+    padding: 14px;
+    text-align: left;
+}
+
+td {
+    padding: 13px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover td {
+    background: #f7f9fc;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.status-ok {
+    background: #d9f7e2;
+    color: #18743a;
+}
+
+.status-baixo {
+    background: #fff0c2;
+    color: #8a6200;
+}
+
+.status-esgotado {
+    background: #ffd9d9;
+    color: #a10000;
+}
+
+
+/* =========================
+   ESTOQUE DISPONÍVEL
+========================= */
+
+.estoque-disponivel {
+    margin-top: 8px;
+    padding: 15px;
+    background: #edf5ff;
+    border-left: 5px solid #2878d4;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #174d83;
+}
+
+.mensagem-estoque {
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    display: none;
+}
+
+.mensagem-sucesso {
+    display: block;
+    background: #d9f7e2;
+    color: #18743a;
+}
+
+.mensagem-erro {
+    display: block;
+    background: #ffd9d9;
+    color: #a10000;
+}
+
+
+/* =========================
+   QR CODE
+========================= */
+
+.qr-card {
+    text-align: center;
+}
+
+#qrcodeImagem {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+#qrcodeImagem img {
+    border: 10px solid white;
+}
+
+.qr-info {
+    color: #666;
+}
+
+
+/* =========================
+   FUNCIONÁRIO
+========================= */
+
+.funcionario-container {
+    max-width: 650px;
+}
+
+.funcionario-container .card {
+    margin-top: 30px;
+}
+
+.descricao {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+
+/* =========================
+   FILTROS
+========================= */
+
+.filtros {
+    margin-bottom: 20px;
+}
+
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 800px) {
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .topo h1 {
+        font-size: 22px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .menu button {
+        flex: 1;
+    }
+}
+#qrcode {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto;
+}
+
+#qrcode canvas,
+#qrcode img {
+    display: block;
+    margin: 0 auto;
+}
+.area-backup {
+    text-align: center;
+}
+/* Controle inicial das áreas */
+#areaAdmin,
+#areaFuncionario {
+    display: none;
+}

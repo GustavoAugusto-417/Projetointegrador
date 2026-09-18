@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Controle de Estoque de Materiais</title>
+
+    <link rel="stylesheet" href="style.css">  
+    <script>
+(function () {
+    const parametros = new URLSearchParams(window.location.search);
+
+    if (parametros.get("modo") === "funcionario") {
+        document.write(`
+            <style>
+                #areaAdmin {
+                    display: none !important;
+                }
+
+                #areaFuncionario {
+                    display: block !important;
+                }
+            </style>
+        `);
+    }
+})();
+</script>
+</head>
+
+<body>
+
+<header class="topo">
+    <h1>Controle de Estoque de Materiais</h1>
+    <p>Sistema de controle de materiais e saídas</p>
+</header>
+
+
+<!-- =========================
+     ÁREA DO ADMINISTRADOR
+========================= -->
+
+<div id="areaAdmin" class="container">
+    <nav class="menu">
+        <button onclick="mostrarSecao('materiais')">📦 Materiais</button>
+        <button onclick="mostrarSecao('saidas')">📤 Saídas</button>
+        <button onclick="mostrarSecao('historico')">📋 Histórico</button>
+        <button onclick="mostrarSecao('qrcode')">📱 QR Code</button>
+    </nav>
+<div class="area-backup">
+
+    <h3>Backup do Sistema</h3>
+
+    <button
+        type="button"
+        class="btn-principal"
+        onclick="exportarDados()"
+    >
+        💾 Fazer Backup
+    </button>
+
+    <button
+        type="button"
+        class="btn-principal"
+        onclick="document.getElementById('inputBackup').click()"
+    >
+        📂 Restaurar Backup
+    </button>
+
+    <input
+        type="file"
+        id="inputBackup"
+        accept=".json"
+        onchange="importarDados(event)"
+        style="display: none;"
+    >
+
+</div>
+
+    <!-- =========================
+         MATERIAIS
+    ========================= -->
+
+    <section id="materiais" class="secao">
+
+        <div class="card">
+
+            <h2>📦 Cadastro de Materiais</h2>
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Código do Material</label>
+                    <input
+                        type="text"
+                        id="codigoMaterial"
+                        placeholder="Ex: MAT001"
+                    >
+                </div>
+
+                <div>
+                    <label>Nome do Material</label>
+                    <input
+                        type="text"
+                        id="nomeMaterial"
+                        placeholder="Ex: Metalon Redondo 1&quot; x 1,5 mm"
+                    >
+                </div>
+
+                <div>
+                    <label>Estoque (metros)</label>
+                    <input
+                        type="number"
+                        id="estoqueMaterial"
+                        placeholder="Ex: 150"
+                        min="0"
+                        step="0.01"
+                    >
+                </div>
+
+            </div>
+
+            <button class="btn-principal" onclick="cadastrarMaterial()">
+                Cadastrar Material
+            </button>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>Materiais cadastrados</h2>
+
+            <div class="tabela-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Material</th>
+                            <th>Estoque</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabelaMateriais"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SAÍDAS
+    ========================= -->
+
+    <section id="saidas" class="secao">
+
+        <div class="card">
+
+            <h2>📤 Saídas de Materiais</h2>
+
+            <p class="descricao">
+                Todas as retiradas realizadas pelos funcionários.
+            </p>
+
+            <div class="tabela-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Matrícula</th>
+                            <th>Funcionário</th>
+                            <th>Setor</th>
+                            <th>Função</th>
+                            <th>Material</th>
+                            <th>Metragem</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabelaSaidas"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         HISTÓRICO
+    ========================= -->
+
+    <section id="historico" class="secao">
+
+        <div class="card">
+
+            <h2>📋 Histórico de Retiradas</h2>
+
+            <div class="filtros">
+
+                <input
+                    type="text"
+                    id="filtroHistorico"
+                    placeholder="Pesquisar funcionário, matrícula ou material..."
+                    oninput="atualizarHistorico()"
+                >
+
+            </div>
+
+            <div class="tabela-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Matrícula</th>
+                            <th>Funcionário</th>
+                            <th>Setor</th>
+                            <th>Função</th>
+                            <th>Material</th>
+                            <th>Metragem</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabelaHistorico"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         QR CODE
+    ========================= -->
+
+    <section id="qrcode" class="secao">
+
+        <div class="card qr-card">
+
+            <h2>📱 QR Code para Funcionários</h2>
+
+            <p>
+                O funcionário deverá escanear este QR Code
+                para acessar somente o formulário de retirada.
+            </p>
+
+            <div id="qrcodeImagem"></div>
+
+            <p class="qr-info">
+                Aponte a câmera do celular para o QR Code.
+            </p>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+
+<!-- =========================
+     ÁREA DO FUNCIONÁRIO
+========================= -->
+
+<div id="areaFuncionario" class="container funcionario-container">
+
+    <div class="card">
+
+        <h2>📤 Retirada de Material</h2>
+
+        <p class="descricao">
+            Preencha os dados abaixo para registrar a retirada.
+        </p>
+
+
+        <div class="formulario-funcionario">
+
+            <label>Matrícula</label>
+
+            <input
+                type="text"
+                id="funcMatricula"
+                placeholder="Digite sua matrícula"
+            >
+
+
+            <label>Nome</label>
+
+            <input
+                type="text"
+                id="funcNome"
+                placeholder="Digite seu nome"
+            >
+
+
+            <label>Setor</label>
+
+            <input
+                type="text"
+                id="funcSetor"
+                placeholder="Ex: GMQ"
+            >
+
+
+            <label>Função</label>
+
+            <input
+                type="text"
+                id="funcaoFuncionario"
+                placeholder="Ex: Soldador"
+            >
+
+
+            <label>Material</label>
+
+            <select
+                id="funcMaterial"
+                onchange="mostrarEstoqueDisponivel()"
+            >
+
+                <option value="">
+                    Selecione o material
+                </option>
+
+            </select>
+
+
+            <div
+                id="estoqueDisponivel"
+                class="estoque-disponivel"
+            >
+                Selecione um material para visualizar o estoque.
+            </div>
+
+
+            <label>Metragem a retirar</label>
+
+            <input
+                type="number"
+                id="funcMetragem"
+                placeholder="Ex: 25"
+                min="0.01"
+                step="0.01"
+                oninput="verificarMetragem()"
+            >
+
+
+            <div
+                id="mensagemEstoque"
+                class="mensagem-estoque"
+            ></div>
+<button
+    type="button"
+    id="btnRegistrarSaida"
+    class="btn-principal btn-grande"
+>
+    Registrar Retirada
+</button>
+
+  
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- QR CODE -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<!-- SCRIPT PRINCIPAL -->
+<script type="module" src="script.js"></script>
+
+</body>
+</html>
