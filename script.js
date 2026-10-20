@@ -21,7 +21,23 @@ const db = getFirestore(app);
 
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
+async function entrarComGoogle() {
+    const mensagem = document.getElementById("mensagemLogin");
 
+    try {
+        mensagem.textContent = "Conectando ao Google...";
+        await signInWithPopup(auth, googleProvider);
+        mensagem.textContent = "Conta Google autenticada. Verificando permissões...";
+    } catch (erro) {
+        console.error("Erro no login:", erro);
+        mensagem.textContent = "Não foi possível entrar com Google.";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("btnLoginGoogle")
+        ?.addEventListener("click", entrarComGoogle);
+});
 /*=========================================================
    CONTROLE DE ESTOQUE DE MATERIAIS
    VERSÃO LOCAL - SEM FIREBASE
