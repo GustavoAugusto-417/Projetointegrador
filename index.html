@@ -7,6 +7,16 @@
     <title>Controle de Estoque de Materiais</title>
 
     <link rel="stylesheet" href="style.css">  
+    <style>
+    #areaAdmin,
+    #areaFuncionario {
+        display: none;
+    }
+
+    #areaLogin {
+        display: block;
+    }
+</style>
     <script>
 (function () {
     const parametros = new URLSearchParams(window.location.search);
@@ -34,7 +44,26 @@
     <h1>Controle de Estoque de Materiais</h1>
     <p>Sistema de controle de materiais e saídas</p>
 </header>
+<div id="areaLogin" class="container">
+    <div class="card">
+        <h2>🔐 Acesso Administrativo</h2>
 
+        <p>
+            Entre com sua conta Google autorizada
+            para acessar o V.E.R.T.E.X.
+        </p>
+
+        <button
+            type="button"
+            id="btnLoginGoogle"
+            class="btn-principal"
+        >
+            Entrar com Google
+        </button>
+
+        <p id="mensagemLogin"></p>
+    </div>
+</div>
 
 <!-- =========================
      ÁREA DO ADMINISTRADOR
