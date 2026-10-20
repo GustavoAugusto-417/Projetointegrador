@@ -1,4 +1,11 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getDocs, collection, getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"; const firebaseConfig = {
     apiKey: "AIzaSyBDG1Q@VRwLFPj9NSVj_NmLo47nq2uZ284",
     authDomain: "vertex-controle-54a2b.firebaseapp.com",
@@ -10,7 +17,12 @@ import { getDocs, collection, getFirestore, doc, setDoc } from "https://www.gsta
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);;/* =========================================================
+const db = getFirestore(app);
+
+const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
+
+/*=========================================================
    CONTROLE DE ESTOQUE DE MATERIAIS
    VERSÃO LOCAL - SEM FIREBASE
    =========================================================
