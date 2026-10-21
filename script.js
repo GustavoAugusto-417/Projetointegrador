@@ -1517,7 +1517,7 @@ function gerarQRCode() {
 
     const elemento =
         document.getElementById(
-            "qrcode"
+            "qrcodeImagem"
         );
 
 
@@ -1557,9 +1557,10 @@ function gerarQRCode() {
         new QRCode(
             elemento,
             {
-                text:
                 
-    "http://192.168.1.103:5500/index.html?modo=funcionario",
+                
+   text:
+    "https://vertex-controle-54a2b.web.app/index.html?modo=funcionario",
                 width:
                     200,
 
