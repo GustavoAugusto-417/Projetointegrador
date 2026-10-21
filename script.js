@@ -2310,6 +2310,7 @@ atualizarTudo();
             "Erro ao recuperar os materiais do Firebase.\n\n" +
             "Abra o F12 e veja o Console."
         );
+        throw erro;
     }
 }
 
