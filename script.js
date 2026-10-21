@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // INICIALIZAÇÃO DO SISTEMA
-    verificarModo();
+    // verificarModo();
     atualizarTudo();
     gerarQRCode();
 
