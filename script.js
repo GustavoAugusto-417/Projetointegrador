@@ -45,17 +45,35 @@ async function entrarComGoogle() {
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("btnLoginGoogle")
         ?.addEventListener("click", entrarComGoogle);
-}); onAuthStateChanged(auth, (user) => {
+});
+
+onAuthStateChanged(auth, async (user) => {
     const mensagem = document.getElementById("mensagemLogin");
+    const areaLogin = document.getElementById("areaLogin");
+    const areaAdmin = document.getElementById("areaAdmin");
 
-    if (!mensagem) return;
+    if (!mensagem || !areaLogin || !areaAdmin) return;
 
-    if (user) {
+    areaLogin.style.display = "block";
+    areaAdmin.style.display = "none";
+
+    if (!user) {
+        mensagem.textContent = "Entre com sua conta Google para continuar.";
+        return;
+    }
+
+    mensagem.textContent = "Verificando autorização...";
+
+    try {
+        await getDoc(doc(db, "materiais", "BRC-014"));
+
+        areaLogin.style.display = "none";
+        areaAdmin.style.display = "block";
+
+    } catch (erro) {
+        console.error("Acesso não autorizado:", erro);
         mensagem.textContent =
-            "Conta autenticada. Aguardando verificação de autorização.";
-    } else {
-        mensagem.textContent =
-            "Entre com sua conta Google para continuar.";
+            "Sua conta não possui autorização administrativa.";
     }
 });
 /*=========================================================
