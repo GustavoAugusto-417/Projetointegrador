@@ -149,7 +149,9 @@ function salvarLocalmente() {
         );
 
        // Salvar materiais também no Firebase
-Promise.all(
+
+    if (false) {
+    Promise.all(
     materiais.map(async (material) => {
 
         const identificador = String(
@@ -160,7 +162,7 @@ Promise.all(
 
         await setDoc(
             doc(db, "materiais", identificador),
-            material
+            materialS
         );
     })
 )
@@ -169,7 +171,8 @@ Promise.all(
 })
 .catch((erro) => {
     console.error("Erro ao salvar materiais no Firebase:", erro);
-}); console.log("Dados salvos no navegador.");
+}); } 
+        console.log("Dados salvos no navegador.");
 
         return true;
 
