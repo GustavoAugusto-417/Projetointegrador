@@ -164,7 +164,7 @@ function salvarLocalmente() {
 
         await setDoc(
             doc(db, "materiais", identificador),
-            materialS
+           material
         );
     })
 )
@@ -2237,7 +2237,7 @@ async function recuperarMateriaisFirebase() {
 
                 materiaisRecuperados.push(material);
                
-atualizarTudo();
+
             }
         });
 
