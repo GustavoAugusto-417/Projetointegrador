@@ -6,7 +6,15 @@ import {
     onAuthStateChanged,
     signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getDocs, collection, getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"; const firebaseConfig = {
+import {
+    getDocs,
+    collection,
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"; 
+const firebaseConfig = {
     apiKey: "AIzaSyBDG1Q@VRwLFPj9NSVj_NmLo47nq2uZ284",
     authDomain: "vertex-controle-54a2b.firebaseapp.com",
     projectId: "vertex-controle-54a2b",
@@ -37,6 +45,18 @@ async function entrarComGoogle() {
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("btnLoginGoogle")
         ?.addEventListener("click", entrarComGoogle);
+}); onAuthStateChanged(auth, (user) => {
+    const mensagem = document.getElementById("mensagemLogin");
+
+    if (!mensagem) return;
+
+    if (user) {
+        mensagem.textContent =
+            "Conta autenticada. Aguardando verificação de autorização.";
+    } else {
+        mensagem.textContent =
+            "Entre com sua conta Google para continuar.";
+    }
 });
 /*=========================================================
    CONTROLE DE ESTOQUE DE MATERIAIS
