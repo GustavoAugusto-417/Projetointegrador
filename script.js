@@ -269,10 +269,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // INICIALIZAÇÃO DO SISTEMA
-    // verificarModo();
-    atualizarTudo();
-    gerarQRCode();
+   // INICIALIZAÇÃO DO SISTEMA
+// verificarModo();
+// atualizarTudo();
+gerarQRCode();
 
 });
 
