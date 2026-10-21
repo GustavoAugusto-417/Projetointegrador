@@ -2309,20 +2309,13 @@ atualizarTudo();
 }
 
 
-/* =====================================================
+/* =================================================
    EXECUTAR RECUPERAÇÃO AO ABRIR O SITE
-===================================================== */
+================================================= */
 
-window.addEventListener(
-    "load",
-    function() {
+// A recuperação automática foi desativada temporariamente.
+// Os materiais serão carregados após a autorização administrativa.
 
-       if (!materiais.length) {
-    recuperarMateriaisFirebase();
-}
-
-    }
-);  // ======================================================
 // MIGRAR MATERIAIS DO LOCALSTORAGE PARA O FIREBASE
 // NÃO APAGA OS DADOS LOCAIS
 // ======================================================
