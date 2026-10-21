@@ -67,10 +67,10 @@ onAuthStateChanged(auth, async (user) => {
     try {
         await getDoc(doc(db, "materiais", "BRC-014"));
 
-        areaLogin.style.display = "none";
-        areaAdmin.style.display = "block";
+      await recuperarMateriaisFirebase();
 
-        await recuperarMateriaisFirebase();
+areaLogin.style.display = "none";
+areaAdmin.style.display = "block";
 
     } catch (erro) {
         console.error("Acesso não autorizado:", erro);
