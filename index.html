@@ -17,25 +17,7 @@
         display: block;
     }
 </style>
-    <script>
-(function () {
-    const parametros = new URLSearchParams(window.location.search);
 
-    if (parametros.get("modo") === "funcionario") {
-        document.write(`
-            <style>
-                #areaAdmin {
-                    display: none !important;
-                }
-
-                #areaFuncionario {
-                    display: block !important;
-                }
-            </style>
-        `);
-    }
-})();
-</script>
 </head>
 
 <body>
