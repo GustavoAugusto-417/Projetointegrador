@@ -70,6 +70,8 @@ onAuthStateChanged(auth, async (user) => {
         areaLogin.style.display = "none";
         areaAdmin.style.display = "block";
 
+        await recuperarMateriaisFirebase();
+
     } catch (erro) {
         console.error("Acesso não autorizado:", erro);
         mensagem.textContent =
